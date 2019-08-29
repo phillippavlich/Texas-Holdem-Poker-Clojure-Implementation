@@ -7,17 +7,29 @@
   [x]
   (println "Welcome to Phil's Texas Holdem Poker game!")
 
-  (let [deck (cards/shuffle-deck (cards/build-deck))
+  (let [cards-gone 4
+        deck (cards/shuffle-deck (cards/build-deck))
         playerA (cards/deal-cards deck 2)
-        newDeckA (cards/remove-cards-from-deck deck 2)
-        playerB (cards/deal-cards newDeckA 2)
-        newDeckB (cards/remove-cards-from-deck newDeckA 2)
+        playerB (cards/deal-cards (cards/remove-cards-from-deck deck 2) 2)
+        dealt-cards '()
         ]
+    
+    (println "Player A: " (cards/name-card (first playerA))
+             " and " (cards/name-card (last playerA))  )
+    (println "Player B: " (cards/name-card (first playerB))
+             " and " (cards/name-card (last playerB))  )
 
-    (println "You were dealt these cards: " (cards/name-card (first playerA)) (cards/name-card (last playerA))  )
-    (println "Opponent was dealt these cards: " (cards/name-card (first playerB)) (cards/name-card (last playerB))  )
+    (println "These are the cards left in the deck: "
+             (cards/remove-cards-from-deck deck cards-gone))
 
-    (println "These are the cards left in the deck: " newDeckB)
+    ;;burn
+    (inc cards-gone)
+
+    ;;flop
+    (println "These are the cards left after burn: " (conj dealt-cards (first deck)))
+    (+ cards-gone 3)
+
+
 
     )
 
