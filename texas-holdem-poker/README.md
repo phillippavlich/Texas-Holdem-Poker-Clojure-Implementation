@@ -1,10 +1,12 @@
 # texas-holdem-poker
 
-A Clojure library designed to ... well, that part is up to you.
+A Clojure library designed to implement a real game of 
+texas holdem poker against a dealer.
 
 ## Usage
 
-FIXME
+This project will allow a user to play texas holdem against a dealer 
+and maintain their chips and totals for whenever they rejoin. 
 
 ## License
 
