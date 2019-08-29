@@ -36,7 +36,6 @@
 (defn name-card
   "This returns the view name of the card"
   [card]
-  (println (apply str (rank-name (get card :rank)) " of " (str (get card :suit))) )
-
+  (apply str (rank-name (get card :rank)) " of " (str (get card :suit)))
   )
 
