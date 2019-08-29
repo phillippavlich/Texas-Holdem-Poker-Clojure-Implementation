@@ -1,7 +1,8 @@
 (ns texas-holdem-poker.cards)
 
 (def suits [:clubs :spades :hearts :diamonds])
-(def ranks (range 1 14)) ;; range is exclusive
+(def ranks (range 2 15)) ;; range is exclusive
+(def card-names [:ace :king :queen :jack])
 
 (defn build-deck []
   "Builds the deck for the first time."
@@ -12,16 +13,23 @@
 
 (defn shuffle-deck
   "Shuffles the deck."
-  [x]
-  (shuffle x))
+  [deck]
+  (shuffle deck))
 
 (defn remove-cards-from-deck
   "Removes dealt cards from deck."
-  [x num]
-  (drop num x)
+  [deck num]
+  (drop num deck)
   )
 
-(defn deal-two-cards
-  "Selects 2 cards from the deck x."
-  [x]
-  (take 2 x))
+(defn deal-cards
+  "Selects and deals cards from the deck."
+  [deck num]
+  (take num deck))
+
+(defn name-card
+  "This returns the view name of the card"
+  [card]
+  (println (apply str (str (get card :rank)) " of " (str (get card :suit))) )
+
+  )
