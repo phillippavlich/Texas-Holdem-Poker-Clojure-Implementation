@@ -13,7 +13,7 @@
 (defn shuffle-deck
   "Shuffles the deck."
   [x]
-  (println (shuffle x) "New shuffled deck!"))
+  (shuffle x))
 
 (defn deal-two-cards
   "Selects 2 cards from the deck x."
