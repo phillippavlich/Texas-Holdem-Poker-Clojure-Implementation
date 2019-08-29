@@ -12,6 +12,7 @@
     (println "You were dealt these cards: " (cards/deal-cards deck 2))
     (println "These are the cards left in the deck: " (cards/remove-cards-from-deck deck 2))
 
+    (cards/name-card (first deck))
     )
 
   )
