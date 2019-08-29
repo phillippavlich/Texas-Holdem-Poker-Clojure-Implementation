@@ -7,16 +7,12 @@
   [x]
   (println "Welcome to Phil's Texas Holdem Poker game!")
 
-  (let [deck (cards/build-deck)]
+  (let [deck (cards/shuffle-deck (cards/build-deck))]
 
-    (cards/deal-two-cards deck)
-    (cards/deal-two-cards (cards/shuffle-deck deck))
-
+    (println "You were dealt these cards: " (cards/deal-two-cards deck))
+    (println "These are the cards left in the deck: " (cards/remove-cards-from-deck deck 2))
 
     )
-
-
-
 
   )
 

@@ -15,7 +15,13 @@
   [x]
   (shuffle x))
 
+(defn remove-cards-from-deck
+  "Removes dealt cards from deck."
+  [x num]
+  (drop num x)
+  )
+
 (defn deal-two-cards
   "Selects 2 cards from the deck x."
   [x]
-  (println (take 2 x) "These are your two cards!"))
+  (take 2 x))
