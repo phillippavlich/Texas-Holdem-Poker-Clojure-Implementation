@@ -6,7 +6,16 @@
   "I don't do a whole lot."
   [x]
   (println x "Hello, World!")
-  (cards/build-deck)
+  (let [deck (cards/build-deck)]
+
+    (cards/deal-two-cards deck)
+    ;;(cards/deal-two-cards (cards/shuffle-deck deck))
+
+
+    )
+
+
 
 
   )
+
