@@ -12,16 +12,16 @@
 
 (defn shuffle-deck
   "Shuffles the deck."
-  [x]
-  (shuffle x))
+  [deck]
+  (shuffle deck))
 
 (defn remove-cards-from-deck
   "Removes dealt cards from deck."
-  [x num]
-  (drop num x)
+  [deck num]
+  (drop num deck)
   )
 
-(defn deal-two-cards
-  "Selects 2 cards from the deck x."
-  [x]
-  (take 2 x))
+(defn deal-cards
+  "Selects and deals cards from the deck."
+  [deck num]
+  (take num deck))
