@@ -2,7 +2,7 @@
 
 (def suits [:clubs :spades :hearts :diamonds])
 (def ranks (range 2 15)) ;; range is exclusive
-(def card-names [:ace :king :queen :jack])
+(def card-names [:jack :queen :king :ace])
 
 (defn build-deck []
   "Builds the deck for the first time."
@@ -27,9 +27,15 @@
   [deck num]
   (take num deck))
 
+(defn rank-name
+  "This returns the string of the rank of the card"
+  [rank]
+  (str (if (> (int rank) 10) (nth card-names (mod rank 11)) rank))
+  )
+
 (defn name-card
   "This returns the view name of the card"
   [card]
-  (println (apply str (str (get card :rank)) " of " (str (get card :suit))) )
-
+  (apply str (rank-name (get card :rank)) " of " (str (get card :suit)))
   )
+
