@@ -35,7 +35,9 @@
     (println "River: " river)
 
     ;;scoring player A
-    (score/flush? (concat river playerA))
+    (println (concat river playerA))
+    (println (score/flush? (concat river playerA)))
+    (println (score/straight? (concat river playerA)))
 
 
     )

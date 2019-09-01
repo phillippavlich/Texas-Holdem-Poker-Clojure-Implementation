@@ -19,3 +19,18 @@
   [hand]
   (> (last (first (sort-by val > (frequencies (map :suit hand))))) 4)
   )
+
+(defn straight?
+  "Returns a boolean whether a straight is present."
+  [hand]
+  (let [rank-order (-> (map :rank hand) sort distinct)]
+
+    (println rank-order)
+    ;;provides list of all results that have a straight, could be multiple results
+    (not (empty?
+           (for [x rank-order
+                       :let [y (take 5 (range x (+ 5 x)))]
+                       :when (= y (take 5 (filter #(> % (dec x)) rank-order)))]
+                   y)))
+    )
+  )
