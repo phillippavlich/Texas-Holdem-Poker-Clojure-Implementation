@@ -23,9 +23,10 @@
 (defn straight?
   "Returns a boolean whether a straight is present."
   [hand]
-  (let [rank-order (-> (map :rank hand) sort distinct)]
+  (let [all-ranks (set (map :rank hand))
+        mod-rank (if (contains? all-ranks 14) (conj all-ranks 1) all-ranks) ;; ace can be low or high
+        rank-order (-> mod-rank sort distinct)]
 
-    (println rank-order)
     ;;provides list of all results that have a straight, could be multiple results
     (not (empty?
            (for [x rank-order
