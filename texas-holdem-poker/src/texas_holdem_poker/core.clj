@@ -36,13 +36,9 @@
 
     ;;scoring player A
     (println (concat river playerA))
-    (println (score/flush? (concat river playerA)))
-    (println (score/straight? (concat river playerA)))
-
+    (println (score/get-pairs (concat river playerA)) )
     ;;scoring player B
     (println (concat river playerB))
-    (println (score/flush? (concat river playerB)))
-    (println (score/straight? (concat river playerB)))
 
     ;;check who wins
     (println (score/who-wins (concat river playerA) (concat river playerB)))

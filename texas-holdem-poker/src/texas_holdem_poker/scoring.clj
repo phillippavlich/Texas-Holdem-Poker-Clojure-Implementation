@@ -36,11 +36,22 @@
     )
   )
 
+(defn get-pairs
+  "Retrieves all pairs for a given hand. Sorted by # freq desc,
+  then by Ace to 2. Helps to deal with tie breakers."
+  [hand]
+  (sort-by last > (sort-by first > (-> (map :rank hand) frequencies )))
+  )
+
 (defn calculate-score
   "Calculates the score of the player."
   [hand]
-  (cond (flush? hand) (score-rank :flush)
+  (cond (-> (get-pairs hand) first last (= 4)) (score-rank :four-of-a-kind)
+        (flush? hand) (score-rank :flush)
         (straight? hand) (score-rank :straight)
+        (-> (get-pairs hand) first last (= 3)) (score-rank :three-of-a-kind)
+        (straight? hand) (score-rank :two-pair)
+        (-> (get-pairs hand) first last (= 1)) (score-rank :one-pair)
         :else (score-rank :high-card))
   )
 
@@ -80,7 +91,7 @@
         ]
 
     (cond (= 1 result) (str "Player A wins with a " (get (clojure.set/map-invert score-rank) score-a))
-          (= -1 result) (str "Player A wins with a " (get (clojure.set/map-invert score-rank) score-b))
+          (= -1 result) (str "Player B wins with a " (get (clojure.set/map-invert score-rank) score-b))
           :else (tiebreaker hand1 hand2 score-a))
     )
   )
