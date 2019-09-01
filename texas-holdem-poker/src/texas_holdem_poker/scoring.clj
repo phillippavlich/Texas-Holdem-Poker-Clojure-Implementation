@@ -13,3 +13,9 @@
    :four-of-a-kind 7
    :straight-flush 8
    :royal-flush 9})
+
+(defn flush?
+  "Returns a boolean whether a flush is present."
+  [hand]
+  (> (last (first (sort-by val > (frequencies (map :suit hand))))) 4)
+  )

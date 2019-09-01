@@ -33,6 +33,11 @@
     ;river
     (def river (concat turn (cards/deal-cards (cards/remove-cards-from-deck deck 11) 1)))
     (println "River: " river)
+
+    ;;scoring player A
+    (score/flush? (concat river playerA))
+
+
     )
 
   )
