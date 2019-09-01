@@ -44,6 +44,36 @@
         :else (score-rank :high-card))
   )
 
+(defn high-cards
+  "Returns a sorted high card set."
+  [hand]
+  (take 5 (-> (map :rank hand) sort reverse))
+  )
+
+(defn compare-highs
+  "Compares highs for tiebreaker"
+  [hand1 hand2]
+  (println hand1)
+  (println hand2)
+  (loop [i hand1
+         j hand2]
+
+    (cond (not (= (first i) (first j))) (if (> (first i) (first j)) (str "Player A won with a " (first i) " high") (str "Player B won with a " (first j) " high"))
+          (empty? i) (println "Tie")
+          :else (recur (rest i) (rest j)))
+
+    )
+  )
+
+(defn tiebreaker
+  "Solves tie breakers."
+  [hand1 hand2 score]
+  (let []
+    (cond (= 0 score) (compare-highs (high-cards hand1) (high-cards hand2))
+          :else "Tie Haven't dealt with this case yet")
+    )
+  )
+
 (defn who-wins
   "Checks which player wins the hand."
   [hand1 hand2]
@@ -54,7 +84,7 @@
 
     (cond (= 1 result) (str "Player A wins with a " (get (clojure.set/map-invert score-rank) score-a))
           (= -1 result) (str "Player A wins with a " (get (clojure.set/map-invert score-rank) score-b))
-          :else "Tie")
+          :else (tiebreaker hand1 hand2 score-a))
     )
   )
 
