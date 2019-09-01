@@ -53,15 +53,12 @@
 (defn compare-highs
   "Compares highs for tiebreaker"
   [hand1 hand2]
-  (println hand1)
-  (println hand2)
-  (loop [i hand1
-         j hand2]
+  (loop [cards-a hand1
+         cards-b hand2]
 
-    (cond (not (= (first i) (first j))) (if (> (first i) (first j)) (str "Player A won with a " (first i) " high") (str "Player B won with a " (first j) " high"))
-          (empty? i) (println "Tie")
-          :else (recur (rest i) (rest j)))
-
+    (cond (not (= (first cards-a) (first cards-b))) (if (> (first cards-a) (first cards-b)) (str "Player A won with a " (first cards-a) " high") (str "Player B won with a " (first cards-b) " high"))
+          (empty? cards-a) (println "Tie")
+          :else (recur (rest cards-a) (rest cards-b)))
     )
   )
 
