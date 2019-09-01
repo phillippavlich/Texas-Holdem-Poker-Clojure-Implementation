@@ -1,6 +1,7 @@
 (ns texas-holdem-poker.core)
 
 (require '[texas-holdem-poker.cards :as cards])
+(require '[texas-holdem-poker.scoring :as score])
 
 (defn main
   "This is the main function to start to the game."
@@ -32,6 +33,11 @@
     ;river
     (def river (concat turn (cards/deal-cards (cards/remove-cards-from-deck deck 11) 1)))
     (println "River: " river)
+
+    ;;scoring player A
+    (score/flush? (concat river playerA))
+
+
     )
 
   )
