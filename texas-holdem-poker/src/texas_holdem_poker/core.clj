@@ -1,6 +1,7 @@
 (ns texas-holdem-poker.core)
 
 (require '[texas-holdem-poker.cards :as cards])
+(require '[texas-holdem-poker.scoring :as score])
 
 (defn main
   "This is the main function to start to the game."
