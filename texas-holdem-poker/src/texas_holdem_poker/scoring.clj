@@ -40,17 +40,18 @@
   "Retrieves all pairs for a given hand. Sorted by # freq desc,
   then by Ace to 2. Helps to deal with tie breakers."
   [hand]
-  (sort-by last > (sort-by first > (-> (map :rank hand) frequencies )))
+  (->> (-> (map :rank hand) frequencies ) (sort-by first > ) (sort-by last >))
   )
 
 (defn calculate-score
   "Calculates the score of the player."
   [hand]
   (cond (-> (get-pairs hand) first last (= 4)) (score-rank :four-of-a-kind)
+        (->> (get-pairs hand) (take 2) (map last) (= #{3 2})) (score-rank :full-house)
         (flush? hand) (score-rank :flush)
         (straight? hand) (score-rank :straight)
         (-> (get-pairs hand) first last (= 3)) (score-rank :three-of-a-kind)
-        (straight? hand) (score-rank :two-pair)
+        (->> (get-pairs hand) (take 2) (map last) (every? #{2})) (score-rank :two-pair)
         (-> (get-pairs hand) first last (= 1)) (score-rank :one-pair)
         :else (score-rank :high-card))
   )
