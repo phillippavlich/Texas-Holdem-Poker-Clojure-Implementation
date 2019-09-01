@@ -44,19 +44,18 @@
         :else (score-rank :high-card))
   )
 
-
 (defn who-wins
   "Checks which player wins the hand."
   [hand1 hand2]
-  (let [result (compare (calculate-score hand1) (calculate-score hand2))]
+  (let [score-a (calculate-score hand1)
+        score-b (calculate-score hand2)
+        result (compare score-a score-b)
+        ]
 
-    (cond (= 1 result) "Player A wins"
-          (= -1 result) "Player B wins"
+    (cond (= 1 result) (str "Player A wins with a " (get (clojure.set/map-invert score-rank) score-a))
+          (= -1 result) (str "Player A wins with a " (get (clojure.set/map-invert score-rank) score-b))
           :else "Tie")
-
     )
-
-
   )
 
 
