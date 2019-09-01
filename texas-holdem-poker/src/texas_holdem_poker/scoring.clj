@@ -35,3 +35,28 @@
                    y)))
     )
   )
+
+(defn calculate-score
+  "Calculates the score of the player."
+  [hand]
+  (cond (flush? hand) (score-rank :flush)
+        (straight? hand) (score-rank :straight)
+        :else (score-rank :high-card))
+  )
+
+
+(defn who-wins
+  "Checks which player wins the hand."
+  [hand1 hand2]
+  (let [result (compare (calculate-score hand1) (calculate-score hand2))]
+
+    (cond (= 1 result) "Player A wins"
+          (= -1 result) "Player B wins"
+          :else "Tie")
+
+    )
+
+
+  )
+
+
