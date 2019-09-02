@@ -82,11 +82,11 @@
   (let [pairs-a (->> (get-pairs hand1) (take num-cards) (map first))
         pairs-b (->> (get-pairs hand2) (take num-cards) (map first))
         ]
-
-    ;; (cond (not (= (first pairs-a) (first pairs-b))) (if (> (first pairs-a) (first pairs-b)) (str "Player A won with a " (first pairs-a) " high") (str "Player B won with a " (first cards-b) " high"))
-    ;;   (empty? cards-a) (str "Tie")
-    ;;    :else (recur (rest cards-a) (rest cards-b))
-    ;;)
+    ;;FIX THESE 
+     (cond (not (= (first pairs-a) (first pairs-b))) (if (> (first pairs-a) (first pairs-b)) (result-description "A" 0 (first pairs-a)) (result-description "B" 0 (first pairs-b)))
+       (empty? cards-a) (str "Tie")
+        :else (recur (rest cards-a) (rest cards-b))
+    )
 
     )
 
