@@ -69,16 +69,34 @@
          cards-b hand2]
 
     (cond (not (= (first cards-a) (first cards-b))) (if (> (first cards-a) (first cards-b)) (str "Player A won with a " (first cards-a) " high") (str "Player B won with a " (first cards-b) " high"))
-          (empty? cards-a) (println "Tie")
+          (empty? cards-a) (str "Tie")
           :else (recur (rest cards-a) (rest cards-b)))
     )
+  )
+
+(defn compare-pairs
+  "Solves tie breakers for pairs."
+  [hand1 hand2 num-cards]
+
+  (let [pairs-a (->> (get-pairs hand1) (take num-cards) (map first))
+        pairs-b (->> (get-pairs hand2) (take num-cards) (map first))
+        ]
+
+    ;; (cond (not (= (first pairs-a) (first pairs-b))) (if (> (first pairs-a) (first pairs-b)) (str "Player A won with a " (first pairs-a) " high") (str "Player B won with a " (first cards-b) " high"))
+    ;;   (empty? cards-a) (str "Tie")
+    ;;    :else (recur (rest cards-a) (rest cards-b))
+    ;;)
+
+    )
+
   )
 
 (defn tiebreaker
   "Solves tie breakers."
   [hand1 hand2 score]
   (let []
-    (cond (= 0 score) (compare-highs (high-cards hand1) (high-cards hand2))
+    (cond (= 1 score) (compare-pairs (high-cards hand1) (high-cards hand2))
+      (= 0 score) (compare-highs (high-cards hand1) (high-cards hand2))
           :else "Tie Haven't dealt with this case yet")
     )
   )
