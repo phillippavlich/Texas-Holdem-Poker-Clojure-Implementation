@@ -18,9 +18,6 @@
     (println "Player B: " (cards/name-card (first playerB))
              " and " (cards/name-card (last playerB))  )
 
-    (println "These are the cards left in the deck: "
-             (cards/remove-cards-from-deck deck 4))
-
     ;;flop
     (def flop (cards/deal-cards
                 (cards/remove-cards-from-deck deck 5) 3))
@@ -36,7 +33,6 @@
 
     ;;scoring player A
     (println (concat river playerA))
-    (println (score/get-pairs (concat river playerA)) )
     ;;scoring player B
     (println (concat river playerB))
 

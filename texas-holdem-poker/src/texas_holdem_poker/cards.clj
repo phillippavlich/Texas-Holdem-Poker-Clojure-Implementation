@@ -30,7 +30,10 @@
 (defn rank-name
   "This returns the string of the rank of the card"
   [rank]
-  (str (if (> (int rank) 10) (nth card-names (mod rank 11)) rank) " ")
+  (cond (> (int rank) 10) (str (nth card-names (mod rank 11)) " ")
+        (= 0 rank) ""
+        :else (str rank " ")
+    )
   )
 
 (defn name-card
