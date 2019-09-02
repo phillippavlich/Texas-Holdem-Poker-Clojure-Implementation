@@ -47,13 +47,17 @@
 (defn calculate-score
   "Calculates the score of the player."
   [hand]
+  (println "test1")
+  (println (-> (get-pairs hand) first last (= 1)))
+  (println (-> (get-pairs hand) first last ))
+  (println (-> (get-pairs hand) ))
   (cond (-> (get-pairs hand) first last (= 4)) (score-rank :four-of-a-kind)
-        (->> (get-pairs hand) (take 2) (map last) (= #{3 2})) (score-rank :full-house)
+        (->> (get-pairs hand) (take 2) (map last) (= '(3 2) )) (score-rank :full-house)
         (flush? hand) (score-rank :flush)
         (straight? hand) (score-rank :straight)
         (-> (get-pairs hand) first last (= 3)) (score-rank :three-of-a-kind)
         (->> (get-pairs hand) (take 2) (map last) (every? #{2})) (score-rank :two-pair)
-        (-> (get-pairs hand) first last (= 1)) (score-rank :one-pair)
+        (-> (get-pairs hand) first last (= 2)) (score-rank :one-pair)
         :else (score-rank :high))
   )
 
@@ -66,37 +70,48 @@
 (defn compare-highs
   "Compares highs for tiebreaker"
   [hand1 hand2]
+  (println "compare high")
+  (println hand1)
+  (println hand2)
   (loop [cards-a hand1
          cards-b hand2]
 
-    (cond (not (= (first cards-a) (first cards-b))) (if (> (first cards-a) (first cards-b)) (result-description "A" 0 (first cards-a)) (result-description "B" 0 (first cards-b)))
-          (empty? cards-a) (str "Tie")
+    (cond (not (= (first cards-a) (first cards-b))) (if (> (first cards-a) (first cards-b)) (result-description "A" " wins " 0 (first cards-a)) (result-description "B" " wins " 0 (first cards-b)))
+          (empty? cards-a) (result-description "A and B" " tie and split the pot " 0 (first hand1))
           :else (recur (rest cards-a) (rest cards-b)))
     )
   )
 
 (defn compare-pairs
   "Solves tie breakers for pairs."
-  [hand1 hand2 num-cards]
+  [hand1 hand2 num-cards score]
+  (println "compare pair")
+  (println hand1)
+  (println hand2)
 
   (let [pairs-a (->> (get-pairs hand1) (take num-cards) (map first))
         pairs-b (->> (get-pairs hand2) (take num-cards) (map first))
         ]
-    ;;FIX THESE 
-     (cond (not (= (first pairs-a) (first pairs-b))) (if (> (first pairs-a) (first pairs-b)) (result-description "A" 0 (first pairs-a)) (result-description "B" 0 (first pairs-b)))
-       (empty? cards-a) (str "Tie")
-        :else (recur (rest cards-a) (rest cards-b))
-    )
+    (println pairs-a)
+    (println pairs-b)
+    (loop [cards-a pairs-a
+           cards-b pairs-b]
+
+      (cond (not (= (first cards-a) (first cards-b))) (if (> (first cards-a) (first cards-b)) (result-description "A" " wins " score (first cards-a)) (result-description "B" " wins " score (first cards-b)))
+            (empty? cards-a) (result-description "A and B" " tie and split the pot " score (first pairs-a))
+            :else (recur (rest cards-a) (rest cards-b)))
+      )
 
     )
-
   )
 
 (defn tiebreaker
   "Solves tie breakers."
   [hand1 hand2 score]
   (let []
-    (cond (= 1 score) (compare-highs (high-cards hand1) (high-cards hand2))
+    (cond (= 3 score) (compare-pairs hand1 hand2 1 score)
+      (= 2 score) (compare-pairs hand1 hand2 2 score)
+      (= 1 score) (compare-pairs hand1 hand2 1 score)
       (= 0 score) (compare-highs (high-cards hand1) (high-cards hand2))
           :else "Tie Haven't dealt with this case yet")
     )
@@ -104,11 +119,11 @@
 
 (defn result-description
   "Returns a string announcing who won and how."
-  [player score-cat card]
+  [player result score-cat card]
   (let [ winner (str "Player " player)
         reason (get (clojure.set/map-invert score-rank) score-cat)
         ]
-    (str winner " wins with a " (cards/rank-name card) reason)
+    (str winner result "with a " (cards/rank-name card) reason)
     )
   )
 
@@ -120,8 +135,10 @@
         result (compare score-a score-b)
         ]
 
-    (cond (= 1 result) (result-description "A" score-a 0)
-          (= -1 result) (result-description "B" score-b 0)
+    (println "Score a: " score-a)
+    (println "Score b: " score-b)
+    (cond (= 1 result) (result-description "A" " wins " score-a 0)
+          (= -1 result) (result-description "B" " wins " score-b 0)
           :else (tiebreaker hand1 hand2 score-a))
     )
   )
