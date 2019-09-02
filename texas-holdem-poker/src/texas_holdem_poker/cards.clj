@@ -30,12 +30,12 @@
 (defn rank-name
   "This returns the string of the rank of the card"
   [rank]
-  (str (if (> (int rank) 10) (nth card-names (mod rank 11)) rank))
+  (str (if (> (int rank) 10) (nth card-names (mod rank 11)) rank) " ")
   )
 
 (defn name-card
   "This returns the view name of the card"
   [card]
-  (apply str (rank-name (get card :rank)) " of " (str (get card :suit)))
+  (apply str (rank-name (get card :rank)) "of " (str (get card :suit)))
   )
 
