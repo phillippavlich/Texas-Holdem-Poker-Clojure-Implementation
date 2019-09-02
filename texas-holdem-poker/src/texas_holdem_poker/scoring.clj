@@ -120,7 +120,6 @@
         result (compare score-a score-b)
         ]
 
-
     (cond (= 1 result) (result-description "A" score-a 0)
           (= -1 result) (result-description "B" score-b 0)
           :else (tiebreaker hand1 hand2 score-a))
