@@ -15,6 +15,16 @@
    :straight-flush 8
    :royal-flush 9})
 
+(defn get-flush
+  "Returns the top 5 ranks of the cards in the flush."
+  [hand]
+  (let [suit (->> (map :suit hand) frequencies (sort-by val >) first)
+        suited-cards (filter #(= (get % :suit) (first suit)) hand)]
+
+    (->> (map :rank suited-cards) sort reverse (take 5) )
+    )
+  )
+
 (defn flush?
   "Returns a boolean whether a flush is present."
   [hand]
@@ -67,15 +77,15 @@
 
 (defn compare-highs
   "Compares highs for tiebreaker"
-  [hand1 hand2]
+  [hand1 hand2 score]
   (println "compare high")
   (println hand1)
   (println hand2)
   (loop [cards-a hand1
          cards-b hand2]
 
-    (cond (not (= (first cards-a) (first cards-b))) (if (> (first cards-a) (first cards-b)) (result-description "A" " wins " 0 (first cards-a)) (result-description "B" " wins " 0 (first cards-b)))
-          (empty? cards-a) (result-description "A and B" " tie and split the pot " 0 (first hand1))
+    (cond (not (= (first cards-a) (first cards-b))) (if (> (first cards-a) (first cards-b)) (result-description "A" " wins " 0 (first cards-a)) (result-description "B" " wins " score (first cards-b)))
+          (empty? cards-a) (result-description "A and B" " tie and split the pot " score (first hand1))
           :else (recur (rest cards-a) (rest cards-b)))
     )
   )
@@ -102,15 +112,15 @@
 
     )
   )
-
+;;Need to select top 5 for straight and flush and use those in compare-highs!!!
 (defn tiebreaker
   "Solves tie breakers."
   [hand1 hand2 score]
   (let []
-    (cond (or (= 4 score) (= 5 score)) (compare-flush-straight hand1 hand2 score)
+    (cond (or (= 4 score) (= 5 score)) (compare-highs hand1 hand2 score)
       (or (= 2 score) (= 6 score)) (compare-pairs hand1 hand2 2 score)
       (or (= 1 score) (= 3 score) (= 7 score)) (compare-pairs hand1 hand2 1 score)
-      (= 0 score) (compare-highs (high-cards hand1) (high-cards hand2))
+      (= 0 score) (compare-highs (high-cards hand1) (high-cards hand2) score)
           :else "Tie Haven't dealt with this case yet")
     )
   )
