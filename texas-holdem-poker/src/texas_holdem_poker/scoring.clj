@@ -111,13 +111,13 @@
 
     )
   )
-;;Need to select top 5 for straight and flush and use those in compare-highs!!!
+;;Need to select top 5 for pairs and use those in compare-highs as tiebreakers!!!
 (defn tiebreaker
   "Solves tie breakers."
   [hand1 hand2 score]
   (let []
     (cond (= 5 score) (compare-highs (get-flush hand1) (get-flush hand2) score)
-      (= 4 score) (compare-highs (get-flush hand1) (get-flush hand2) score)
+      (= 4 score) (compare-highs (get-straight hand1) (get-straight hand2) score)
       (or (= 2 score) (= 6 score)) (compare-pairs hand1 hand2 2 score)
       (or (= 1 score) (= 3 score) (= 7 score)) (compare-pairs hand1 hand2 1 score)
       (= 0 score) (compare-highs (high-cards hand1) (high-cards hand2) score)
