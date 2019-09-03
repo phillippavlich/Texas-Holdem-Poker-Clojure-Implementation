@@ -32,20 +32,25 @@
   (> (count (get-flush hand)) 4)
   )
 
-(defn straight?
-  "Returns a boolean whether a straight is present."
+(defn get-straight
+  "Returns the top 5 ranks of the cards in the straight."
   [hand]
   (let [all-ranks (set (map :rank hand))
         mod-rank (if (contains? all-ranks 14) (conj all-ranks 1) all-ranks) ;; ace can be low or high
         rank-order (-> mod-rank sort distinct)]
 
     ;;provides list of all results that have a straight, could be multiple results
-    (not (empty?
-           (for [x rank-order
-                       :let [y (take 5 (range x (+ 5 x)))]
-                       :when (= y (take 5 (filter #(> % (dec x)) rank-order)))]
-                   y)))
+    (last (for [x rank-order
+                :let [y (take 5 (range x (+ 5 x)))]
+                :when (= y (take 5 (filter #(> % (dec x)) rank-order)))]
+            y))
     )
+  )
+
+(defn straight?
+  "Returns a boolean whether a straight is present."
+  [hand]
+  (not (empty? (get-straight hand)))
   )
 
 (defn get-pairs
@@ -79,9 +84,6 @@
 (defn compare-highs
   "Compares highs for tiebreaker"
   [hand1 hand2 score]
-  (println "compare high")
-  (println hand1)
-  (println hand2)
   (loop [cards-a hand1
          cards-b hand2]
 
@@ -94,10 +96,6 @@
 (defn compare-pairs
   "Solves tie breakers for pairs."
   [hand1 hand2 num-cards score]
-  (println "compare pair")
-  (println hand1)
-  (println hand2)
-
   (let [pairs-a (->> (get-pairs hand1) (take num-cards) (map first))
         pairs-b (->> (get-pairs hand2) (take num-cards) (map first))
         ]
