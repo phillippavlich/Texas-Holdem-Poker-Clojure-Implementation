@@ -38,8 +38,6 @@
 
     ;;check who wins
     (println (score/who-wins (concat river playerA) (concat river playerB)))
-    (score/get-flush (concat river playerA))
-    (score/get-flush (concat river playerB))
 
     )
 
