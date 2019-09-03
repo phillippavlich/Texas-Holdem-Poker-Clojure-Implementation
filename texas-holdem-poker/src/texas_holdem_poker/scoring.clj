@@ -63,8 +63,6 @@
 (defn calculate-score
   "Calculates the score of the player."
   [hand]
-  (println "pairs: ")
-  (println (-> (get-pairs hand) ))
   (cond (-> (get-pairs hand) first last (= 4)) (score-rank :four-of-a-kind)
         (->> (get-pairs hand) (take 2) (map last) (= '(3 2) )) (score-rank :full-house)
         (flush? hand) (score-rank :flush)
@@ -96,16 +94,21 @@
 (defn compare-pairs
   "Solves tie breakers for pairs."
   [hand1 hand2 num-cards score]
-  (let [pairs-a (->> (get-pairs hand1) (take num-cards) (map first))
-        pairs-b (->> (get-pairs hand2) (take num-cards) (map first))
+  (let [all-pairs-a (->> (get-pairs hand1) (take num-cards) )
+        all-pairs-b (->> (get-pairs hand2) (take num-cards) )
+        pairs-a (map first all-pairs-a)
+        pairs-b (map first all-pairs-b)
+        count-cards-used (reduce + (map last all-pairs-a))
+        non-pair-ranks-a (map :rank (filter #(not (contains? (set pairs-a) (get % :rank) )) hand1))
+        non-pair-ranks-b (map :rank (filter #(not (contains? (set pairs-b) (get % :rank) )) hand2))
+        tie-breaker-a (->> non-pair-ranks-a sort reverse (take (- 5 count-cards-used)))
+        tie-breaker-b (->> non-pair-ranks-b sort reverse (take (- 5 count-cards-used)))
         ]
-    (println pairs-a)
-    (println pairs-b)
     (loop [cards-a pairs-a
            cards-b pairs-b]
 
       (cond (not (= (first cards-a) (first cards-b))) (if (> (first cards-a) (first cards-b)) (result-description "A" " wins " score (first cards-a)) (result-description "B" " wins " score (first cards-b)))
-            (empty? cards-a) (result-description "A and B" " tie and split the pot " score (first pairs-a))
+            (empty? cards-a) (compare-highs tie-breaker-a tie-breaker-b 0)
             :else (recur (rest cards-a) (rest cards-b)))
       )
 
