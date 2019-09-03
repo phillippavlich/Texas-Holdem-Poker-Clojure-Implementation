@@ -47,9 +47,7 @@
 (defn calculate-score
   "Calculates the score of the player."
   [hand]
-  (println "test1")
-  (println (-> (get-pairs hand) first last (= 1)))
-  (println (-> (get-pairs hand) first last ))
+  (println "pairs: ")
   (println (-> (get-pairs hand) ))
   (cond (-> (get-pairs hand) first last (= 4)) (score-rank :four-of-a-kind)
         (->> (get-pairs hand) (take 2) (map last) (= '(3 2) )) (score-rank :full-house)
@@ -109,9 +107,9 @@
   "Solves tie breakers."
   [hand1 hand2 score]
   (let []
-    (cond (= 3 score) (compare-pairs hand1 hand2 1 score)
-      (= 2 score) (compare-pairs hand1 hand2 2 score)
-      (= 1 score) (compare-pairs hand1 hand2 1 score)
+    (cond (or (= 4 score) (= 5 score)) (compare-flush-straight hand1 hand2 score)
+      (or (= 2 score) (= 6 score)) (compare-pairs hand1 hand2 2 score)
+      (or (= 1 score) (= 3 score) (= 7 score)) (compare-pairs hand1 hand2 1 score)
       (= 0 score) (compare-highs (high-cards hand1) (high-cards hand2))
           :else "Tie Haven't dealt with this case yet")
     )
