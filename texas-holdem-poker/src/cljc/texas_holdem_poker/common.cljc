@@ -4,22 +4,16 @@
   )
 
 (defn get-deck
-  "A function that is shared between clj and cljs"
+  "Builds and shuffles the deck to play with."
   []
   (cards/shuffle-deck (cards/build-deck))
   )
 
-(defn get-deck-2
-  "A function that is shared between clj and cljs"
-  []
-  (-> (cards/shuffle-deck (cards/build-deck)) first last)
-  )
-
 (defn get-player-cards
-  "A function that is shared between clj and cljs"
+  "Gets the card names of each player."
   [deck]
-  (let [playerA (cards/deal-cards deck 2)
-        playerB (cards/deal-cards (cards/remove-cards-from-deck deck 2) 2)]
+  (let [playerA (get-player-a deck)
+        playerB (get-player-b deck)]
 
       (str "Player A: " (cards/name-card (first playerA))
            " and " (cards/name-card (last playerA)) " and "
@@ -31,37 +25,37 @@
   )
 
 (defn get-player-a
-  "A function that is shared between clj and cljs"
+  "Gets Player A's cards."
   [deck]
   (cards/deal-cards deck 2)
   )
 
 (defn get-player-b
-  "A function that is shared between clj and cljs"
+  "Gets Player B's cards."
   [deck]
   (cards/deal-cards (cards/remove-cards-from-deck deck 2) 2)
   )
 
 (defn get-flop
-  "A function that is shared between clj and cljs"
+  "Gets the flop, 3 cards flipped."
   [deck]
   (cards/deal-cards (cards/remove-cards-from-deck deck 5) 3)
   )
 
 (defn get-turn
-  "A function that is shared between clj and cljs"
+  "Gets the turn, 1 cards flipped."
   [deck]
   (cards/deal-cards (cards/remove-cards-from-deck deck 9) 1)
   )
 
 (defn get-river
-  "A function that is shared between clj and cljs"
+  "Gets the river, 1 cards flipped."
   [deck]
   (cards/deal-cards (cards/remove-cards-from-deck deck 11) 1)
   )
 
 (defn get-result
-  "A function that is shared between clj and cljs"
+  "Returns the result of the hand."
   [dealt playerA playerB]
   (score/who-wins (concat dealt playerA) (concat dealt playerB))
   )
