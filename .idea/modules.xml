@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/texas-holdem-poker/texas-holdem-poker.iml" filepath="$PROJECT_DIR$/texas-holdem-poker/texas-holdem-poker.iml" />
+      <module fileurl="file://$PROJECT_DIR$/texas-holdem-poker/texas-holdem-poker-1.iml" filepath="$PROJECT_DIR$/texas-holdem-poker/texas-holdem-poker-1.iml" />
     </modules>
   </component>
 </project>

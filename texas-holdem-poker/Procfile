@@ -1,0 +1,1 @@
+web: java $JVM_OPTS -cp target/texas-holdem-poker.jar clojure.main -m texas-holdem-poker.application
