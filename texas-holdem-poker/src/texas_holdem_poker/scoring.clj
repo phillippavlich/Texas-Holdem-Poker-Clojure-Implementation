@@ -1,8 +1,7 @@
 (ns texas-holdem-poker.scoring)
 
 (require '[texas-holdem-poker.cards :as cards])
-;;if tied in score rank look to card rank to be a tie breaker!
-;;need a function to look into ties
+
 (def score-rank
   {:high 0
    :one-pair 1
@@ -63,6 +62,8 @@
 (defn calculate-score
   "Calculates the score of the player."
   [hand]
+  ;;haven't done anything yet for straight or royal flush 8 9
+  ;;start with animations and front end first (google how to)
   (cond (-> (get-pairs hand) first last (= 4)) (score-rank :four-of-a-kind)
         (->> (get-pairs hand) (take 2) (map last) (= '(3 2) )) (score-rank :full-house)
         (flush? hand) (score-rank :flush)
@@ -114,7 +115,7 @@
 
     )
   )
-;;Need to select top 5 for pairs and use those in compare-highs as tiebreakers!!!
+
 (defn tiebreaker
   "Solves tie breakers."
   [hand1 hand2 score]
