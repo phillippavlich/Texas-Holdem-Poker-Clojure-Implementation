@@ -27,6 +27,14 @@
    :hearts "hearts.png"
    })
 
+(defn get-suit-url
+  "Gets the url for the suit."
+  [card]
+  (println (get suit (get (first card) :suit)))
+  (get suit (get (first card) :suit))
+  )
+
+
 (defn greeting []
   [:div
    [:h1 (:text @app-state)]
@@ -36,7 +44,7 @@
     [:img {:id "test" :src "hearts.png" :class "suit"}]
     ]
    [:div {:class "card"} (:text @river-view)
-    [:img {:id "test1" :src "diamonds.png" :class "suit"}]
+    [:img {:id "test1" :src (get-suit-url river) :class "suit"}]
     ]
    [:img {:id img-id :src "clubs.png" :class "suit"}]
 

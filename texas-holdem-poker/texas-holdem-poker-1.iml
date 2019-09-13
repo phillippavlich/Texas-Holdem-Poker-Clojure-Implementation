@@ -14,9 +14,9 @@
       <sourceFolder url="file://$MODULE_DIR$/src/cljs" isTestSource="false" />
       <sourceFolder url="file://C:\Users\Phil\Documents\GitHub\Texas-Holdem-Poker-Clojure-Implementation\texas-holdem-poker\dev-resources" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/test/clj" isTestSource="true" />
+      <excludeFolder url="file://$MODULE_DIR$/dev-target/public/js/compiled" />
+      <excludeFolder url="file://$MODULE_DIR$/resources/public/js/compiled" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
-      <excludeFolder url="file://C:\Users\Phil\Documents\GitHub\Texas-Holdem-Poker-Clojure-Implementation\texas-holdem-poker\dev-target\public\js\compiled" />
-      <excludeFolder url="file://C:\Users\Phil\Documents\GitHub\Texas-Holdem-Poker-Clojure-Implementation\texas-holdem-poker\resources\public\js\compiled" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
