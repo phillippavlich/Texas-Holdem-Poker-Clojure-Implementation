@@ -1,3 +1,27 @@
 h1 {
   text-decoration: underline;
 }
+html{
+    background-color: #d9d9d9;
+}
+#app{
+    background-color: #00b300;
+}
+.card{
+    background-color: #fff;
+    width: 120px;
+    height: 160px;
+    border: 1px solid black;
+    border-radius: 2%;
+    margin: 2% 5%;
+}
+
+.face-down{
+    background-color: #1a1aff;
+}
+
+.suit{
+    margin: 25%;
+    width: 60px;
+    height: 60px;
+}

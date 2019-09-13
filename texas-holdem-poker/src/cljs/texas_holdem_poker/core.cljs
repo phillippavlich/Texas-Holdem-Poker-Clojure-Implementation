@@ -18,13 +18,29 @@
 (defonce river-view (atom {:text (common/get-river deck)}))
 (defonce result (atom {:text (common/get-result (concat flop turn river) playerA playerB)}))
 
+(def img-id "uploaded-image")
+
+(def suit
+  {:clubs "clubs.png"
+   :spades "spades.png"
+   :diamonds "diamonds.png"
+   :hearts "hearts.png"
+   })
+
 (defn greeting []
   [:div
    [:h1 (:text @app-state)]
-   [:h4 (:text @player-cards)]
-   [:p (:text @flop-view)]
-   [:p (:text @turn-view)]
-   [:p (:text @river-view)]
+   [:p (:text @player-cards)]
+   [:div {:class "card"} (:text @flop-view)]
+   [:div {:class "card"} (:text @turn-view)
+    [:img {:id "test" :src "hearts.png" :class "suit"}]
+    ]
+   [:div {:class "card"} (:text @river-view)
+    [:img {:id "test1" :src "diamonds.png" :class "suit"}]
+    ]
+   [:img {:id img-id :src "clubs.png" :class "suit"}]
+
+   [:div {:class "card face-down"}]
    [:p (:text @result)]
    ]
   )
