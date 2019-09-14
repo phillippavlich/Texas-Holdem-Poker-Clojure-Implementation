@@ -25,3 +25,10 @@ html{
     width: 60px;
     height: 60px;
 }
+
+.left-rank{
+    margin: 2%;
+    width: 20px;
+    height: 20px;
+    color: black;
+}
