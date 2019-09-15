@@ -18,8 +18,6 @@
 (defonce river-view (atom {:text (common/get-river deck)}))
 (defonce result (atom {:text (common/get-result (concat flop turn river) playerA playerB)}))
 
-(def img-id "uploaded-image")
-
 (def suit
   {:clubs "clubs.png"
    :spades "spades.png"
@@ -34,18 +32,25 @@
   )
 
 (defn get-rank
-  "Gets the url for the suit."
+  "Gets the rank of the card for display."
   [card]
-  (get card :rank)
+  (let [rank (get card :rank)]
+    (cond
+      (< rank 11) (str rank)
+      (= rank 11) (str "J")
+      (= rank 12) (str "Q")
+      (= rank 13) (str "K")
+      (= rank 14) (str "A")
+      )
+    )
   )
 
-;;build a card component that has all the html/css required.
 (defn build-card
   "Build the card for the UI."
   [card]
   [:div {:class "card"}
    [:div {:class "rank-card"} (str (get-rank card))]
-   [:img {:id "test1" :src (get-suit-url card) :class "suit"}]
+   [:img {:src (get-suit-url card) :class "suit"}]
    [:div {:class "rank-card right-rank"} (str (get-rank card))]
    ]
   )
@@ -54,16 +59,7 @@
   [:div
    [:h1 (:text @app-state)]
    [:p (:text @player-cards)]
-   ;;[:div {:class "card"} (:text @flop-view)]
-   ;; [:div {:class "card"} (:text @turn-view)
-    ;;[:div {:class "rank-card"} (str (get-rank turn))]
-    ;;[:img {:id "test" :src (get-suit-url turn) :class "suit"}]
-    ;;]
 
-
-
-
-   ;;look at internet explorer
    [:div {:class "card face-down"}]
    [:div {:class "deal-box"}
     (build-card (first flop))
@@ -90,8 +86,6 @@
     ]
     [:p (:text @result)]
     ]
-
-
   )
 
 (defn render []
