@@ -1,5 +1,6 @@
 h1 {
   text-decoration: underline;
+  text-align: center;
 }
 html{
     background-color: #d9d9d9;
@@ -8,12 +9,13 @@ html{
     background-color: #00b300;
 }
 .card{
+    display: inline-block;
     background-color: #fff;
     width: 120px;
     height: 160px;
     border: 1px solid black;
     border-radius: 2%;
-    margin: 2% 5%;
+    margin: 2% 10px;
 }
 
 .face-down{
@@ -38,4 +40,8 @@ html{
 .right-rank{
     float: right;
     transform: rotate(180deg);
+}
+
+.deal-box{
+    display: inline-block;
 }

@@ -30,14 +30,13 @@
 (defn get-suit-url
   "Gets the url for the suit."
   [card]
-  (get suit (get (first card) :suit))
+  (get suit (get card :suit))
   )
 
 (defn get-rank
   "Gets the url for the suit."
   [card]
-  (println (get (first card) :rank))
-  (get (first card) :rank)
+  (get card :rank)
   )
 
 ;;build a card component that has all the html/css required.
@@ -55,21 +54,44 @@
   [:div
    [:h1 (:text @app-state)]
    [:p (:text @player-cards)]
-   [:div {:class "card"} (:text @flop-view)]
-   [:div {:class "card"} (:text @turn-view)
-    [:div {:class "rank-card"} (str (get-rank turn))]
-    [:img {:id "test" :src (get-suit-url turn) :class "suit"}]
-    ]
-   (build-card river)
-   [:div {:class "card"} (:text @river-view)
-    [:div {:class "rank-card"} (str (get-rank river))]
-    [:img {:id "test1" :src (get-suit-url river) :class "suit"}]
-    ]
-   [:img {:id img-id :src "clubs.png" :class "suit"}]
+   ;;[:div {:class "card"} (:text @flop-view)]
+   ;; [:div {:class "card"} (:text @turn-view)
+    ;;[:div {:class "rank-card"} (str (get-rank turn))]
+    ;;[:img {:id "test" :src (get-suit-url turn) :class "suit"}]
+    ;;]
 
+
+
+
+   ;;look at internet explorer
    [:div {:class "card face-down"}]
-   [:p (:text @result)]
-   ]
+   [:div {:class "deal-box"}
+    (build-card (first flop))
+    (build-card (second flop))
+    (build-card (last flop))
+    [:br]
+    (build-card (first turn))
+    (build-card (first river))
+    ]
+   [:br]
+
+   [:div {:class "deal-box"}
+    [:h3 "player A has:"]
+    [:br]
+    (build-card (first playerA))
+    (build-card (last playerA))
+    ]
+
+   [:div {:class "deal-box"}
+    [:h3 "player B has:"]
+    [:br]
+    (build-card (first playerB))
+    (build-card (last playerB))
+    ]
+    [:p (:text @result)]
+    ]
+
+
   )
 
 (defn render []
