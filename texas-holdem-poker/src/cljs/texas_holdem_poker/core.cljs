@@ -40,7 +40,16 @@
   (get (first card) :rank)
   )
 
-
+;;build a card component that has all the html/css required.
+(defn build-card
+  "Build the card for the UI."
+  [card]
+  [:div {:class "card"}
+   [:div {:class "rank-card"} (str (get-rank card))]
+   [:img {:id "test1" :src (get-suit-url card) :class "suit"}]
+   [:div {:class "rank-card right-rank"} (str (get-rank card))]
+   ]
+  )
 
 (defn greeting []
   [:div
@@ -48,11 +57,12 @@
    [:p (:text @player-cards)]
    [:div {:class "card"} (:text @flop-view)]
    [:div {:class "card"} (:text @turn-view)
-    [:div {:class "left-rank"} (str (get-rank turn))]
+    [:div {:class "rank-card"} (str (get-rank turn))]
     [:img {:id "test" :src (get-suit-url turn) :class "suit"}]
     ]
+   (build-card river)
    [:div {:class "card"} (:text @river-view)
-    [:div {:class "left-rank"} (str (get-rank river))]
+    [:div {:class "rank-card"} (str (get-rank river))]
     [:img {:id "test1" :src (get-suit-url river) :class "suit"}]
     ]
    [:img {:id img-id :src "clubs.png" :class "suit"}]
