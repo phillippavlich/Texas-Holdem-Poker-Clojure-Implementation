@@ -20,6 +20,7 @@
   (let [suit (->> (map :suit hand) frequencies (sort-by val >) first)
         suited-cards (filter #(= (get % :suit) (first suit)) hand)]
 
+    ;;return all sets of 5 for straight flush, if any of those combos match get-straight
     (->> (map :rank suited-cards) sort reverse (take 5) )
     )
   )

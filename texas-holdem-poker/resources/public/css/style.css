@@ -45,3 +45,8 @@ html{
 .deal-box{
     display: inline-block;
 }
+
+.game-board{
+    width: 600px;
+    margin: 0 auto;
+}

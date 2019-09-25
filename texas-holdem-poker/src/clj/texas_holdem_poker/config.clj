@@ -5,7 +5,7 @@
             [ring.middleware.logger :refer [wrap-with-logger]]))
 
 (defn config []
-  {:http-port  (Integer. (or (env :port) 10555))
+  {:http-port  (Integer. (or (env :port) 10554))
    :middleware [[wrap-defaults api-defaults]
                 wrap-with-logger
                 wrap-gzip]})

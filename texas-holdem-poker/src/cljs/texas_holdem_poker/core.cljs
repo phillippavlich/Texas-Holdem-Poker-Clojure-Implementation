@@ -55,40 +55,69 @@
    ]
   )
 
-(defn greeting []
+;;look at breaking this down into multiple functions
+;;then rendering multiple components
+(defn game []
   [:div
-   [:h1 (:text @app-state)]
-   [:p (:text @player-cards)]
-
-   [:div {:class "card face-down"}]
-   [:div {:class "deal-box"}
-    (build-card (first flop))
-    (build-card (second flop))
-    (build-card (last flop))
+   [:div {:class "game-board"}
+    [:div {:class "card face-down"}]
+    [:div {:class "deal-box"}
+     (build-card (first flop))
+     (build-card (second flop))
+     (build-card (last flop))
+     [:br]
+     (build-card (first turn))
+     (build-card (first river))
+     ]
     [:br]
-    (build-card (first turn))
-    (build-card (first river))
-    ]
-   [:br]
 
-   [:div {:class "deal-box"}
-    [:h3 "player A has:"]
-    [:br]
-    (build-card (first playerA))
-    (build-card (last playerA))
-    ]
+    [:div {:class "deal-box"}
+     [:h3 "player A has:"]
+     [:br]
+     (build-card (first playerA))
+     (build-card (last playerA))
+     ]
 
-   [:div {:class "deal-box"}
-    [:h3 "player B has:"]
-    [:br]
-    (build-card (first playerB))
-    (build-card (last playerB))
-    ]
+    [:div {:class "deal-box"}
+     [:h3 "player B has:"]
+     [:br]
+     (build-card (first playerB))
+     (build-card (last playerB))
+     ]
     [:p (:text @result)]
+    ]
+
     ]
   )
 
+
+(defn greeting []
+  [:div
+   [:h1 (:text @app-state)]
+   ]
+  )
+
+
+(defn login-page []
+  [:div#login-form
+   [:h2 "Please login or sign up"]
+   [:form {:method :post :action "/login"}
+    ;;[username-field] ;; embed Reagent component (defined elsewhere)
+    ;;[password-field a b c] ;; note the arguments
+    [:button {:type :submit} "Log in"]]]
+  )
+
+(defn screen []
+  [:div
+   [login-page]
+   [greeting]
+   [game]
+   [:h1 "adding more parts"]
+
+   ]
+  )
+
 (defn render []
-  (reagent/render [greeting] (js/document.getElementById "app"))
+  (reagent/render [screen] (js/document.getElementById "app"))
 
   )
