@@ -1,6 +1,8 @@
 (ns texas-holdem-poker.core
   (:require [reagent.core :as reagent :refer [atom]]
-            [texas-holdem-poker.common :as common])
+            [texas-holdem-poker.common :as common]
+            [texas-holdem-poker.views.login :as login]
+            )
   )
 
 (enable-console-print!)
@@ -97,19 +99,9 @@
    ]
   )
 
-
-(defn login-page []
-  [:div#login-form
-   [:h2 "Please login or sign up"]
-   [:form {:method :post :action "/login"}
-    ;;[username-field] ;; embed Reagent component (defined elsewhere)
-    ;;[password-field a b c] ;; note the arguments
-    [:button {:type :submit} "Log in"]]]
-  )
-
 (defn screen []
   [:div
-   [login-page]
+   (login/login-page)
    [greeting]
    [game]
    [:h1 "adding more parts"]
