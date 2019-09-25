@@ -18,13 +18,15 @@
   )
 
 (defn login-page []
-  (let [email-address (atom nil)]
+  (let [username (atom "")
+        email-address (atom "")
+        password (atom "")]
     [:div#login-form
      [:h2 "Please login or sign up"]
      [:form {:method :post :action "/login"}
-      (input-element "username" "username" "text" email-address)
+      (input-element "username" "username" "text" username)
       (input-element "email" "email" "email" email-address)
-      (input-element "password" "password" "password" email-address)
+      (input-element "password" "password" "password" password)
       [:button {:type :submit} "Log in"]]]
 
 
