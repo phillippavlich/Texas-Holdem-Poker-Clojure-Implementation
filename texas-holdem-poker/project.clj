@@ -6,6 +6,8 @@
 
   :dependencies [[org.clojure/clojure "1.10.0"]
                  [org.clojure/clojurescript "1.10.439" :scope "provided"]
+                 [org.clojure/java.jdbc "0.6.1"]
+                 [org.postgresql/postgresql "42.2.8.jre7"]
                  [com.cognitect/transit-clj "0.8.313"]
                  [ring "1.7.1"]
                  [ring/ring-defaults "0.3.2"]
@@ -59,7 +61,7 @@
                            :optimizations :none}}
 
                {:id "min"
-                :source-paths ["src/cljs" "src/cljc"]
+                :source-paths ["src/cljs" "src/cljc" "src/clj"]
                 :jar true
                 :compiler {:main texas-holdem-poker.system
                            :output-to "resources/public/js/compiled/texas_holdem_poker.js"
