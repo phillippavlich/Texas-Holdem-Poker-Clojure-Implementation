@@ -3,7 +3,7 @@
             )
   )
 
-(common/build-db) ;;build database
+;;(common/build-db) ;;build database
 (defonce deck (common/get-deck))
 (defonce player-cards (atom {:text (common/get-player-cards deck)}))
 (defonce playerA (common/get-player-a deck))

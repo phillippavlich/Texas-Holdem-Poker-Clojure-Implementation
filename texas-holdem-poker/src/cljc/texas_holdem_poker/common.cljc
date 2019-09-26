@@ -1,7 +1,8 @@
 (ns texas-holdem-poker.common
   (:require [texas-holdem-poker.cards :as cards]
             [texas-holdem-poker.scoring :as score]
-            [texas-holdem-poker.db.build_db :as db])
+    ;;[texas-holdem-poker.db.build_db :as db]
+            )
   )
 
 (defn get-deck
@@ -64,7 +65,7 @@
 (defn build-db
   "Builds the database."
   []
-  (db/build-all-tables)
+  ;; (db/build-all-tables)
   )
 
 

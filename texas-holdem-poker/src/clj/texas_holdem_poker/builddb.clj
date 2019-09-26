@@ -1,6 +1,5 @@
 (ns texas-holdem-poker.builddb
-  (:require [clojure.java.jdbc :as jdbc]
-            )
+  ;; (:require [clojure.java.jdbc :as jdbc])
   )
 
 ;;lein repl
