@@ -61,7 +61,7 @@
                            :optimizations :none}}
 
                {:id "min"
-                :source-paths ["src/cljs" "src/cljc"]
+                :source-paths ["src/cljs" "src/cljc" "src/clj"]
                 :jar true
                 :compiler {:main texas-holdem-poker.system
                            :output-to "resources/public/js/compiled/texas_holdem_poker.js"

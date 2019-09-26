@@ -6,7 +6,6 @@
   )
 
 (enable-console-print!)
-
 (defonce app-state (atom {:text "Welcome to Phil's Texas Holdem Poker game!"}))
 
 (defn greeting []
